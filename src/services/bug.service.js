@@ -4,7 +4,7 @@ var axios = Axios.create({
     withCredentials: true
 }) 
 
-const BASE_URL = 'http://localhost:3030/api/bug/'
+const BASE_URL = 'http://127.0.0.1:5050/api/bug/'
 
 export const bugService = {
     query,
