@@ -1,0 +1,37 @@
+[
+    {
+        "_id": "c101",
+        "title": "Cannot save a Car",
+        "severity": 3,
+        "description": "Saving a car is not possible when clicking save button",
+        "createdAt": 1542107359454
+    },
+    {
+        "_id": "c103",
+        "title": "Removing car does not work",
+        "description": "Removing a car is not possible when clicking remove button",
+        "severity": 4,
+        "createdAt": 1542107359954
+    },
+    {
+        "_id": "c104",
+        "title": "Saving car saves the previous car",
+        "description": "Saving a car is saving the previous car, and not the actual car clicked on",
+        "severity": 2,
+        "createdAt": 1542107359254
+    },
+    {
+        "_id": "c105",
+        "title": "Edit button is not functional",
+        "description": "Edit button does not work, a click does not trigger any effect",
+        "severity": 2,
+        "createdAt": 1542107359950
+    },
+    {
+        "_id": "c106",
+        "title": "Design is not as in figma",
+        "description": "Bug preview design is not accurate to Figma file original design",
+        "severity": 1,
+        "createdAt": 1542107359234
+    }
+]

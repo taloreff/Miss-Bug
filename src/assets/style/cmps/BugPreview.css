@@ -1,0 +1,41 @@
+.bug-preview {
+    text-align: center;
+    padding: 0.3em;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 250px auto;
+}
+
+.bug-preview article{
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 50px auto 1fr 1fr;
+}
+
+.bug-preview div{
+    grid-row: 2;
+}
+
+
+.bug-preview h4 {
+    text-transform: capitalize;
+    color: black;
+    grid-row: 1;
+}
+
+.bug-preview img {
+    max-width: 100px;
+}
+
+.bug-preview h1{
+    grid-row: 2;
+}
+
+.bug-preview article:nth-child(3){
+    grid-row: 3;
+}
+
+.bug-preview article:nth-child(4){
+    grid-row: 4;
+}
+
