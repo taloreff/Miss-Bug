@@ -4,6 +4,9 @@ import cookieParser from 'cookie-parser'
 
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 const app = express()
 
 const corsOptions = {
@@ -73,5 +76,5 @@ app.get('/api/bug/:bugId', async (req, res) => {
     }
 })
 
-
-app.listen(3030, () => console.log('server ready at port 3030'))
+const port = process.env.PORT || 3030
+app.listen(port, () => console.log(`Server listening on port http://127.0.0.1:${port}/`))
