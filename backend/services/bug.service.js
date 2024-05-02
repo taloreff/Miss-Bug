@@ -2,7 +2,7 @@ import fs from 'fs'
 import ms from 'ms'
 import { utilService } from "./util.service.js"
 
-const bugs = utilService.readJsonFile('C:/Users/talo/Desktop/miss-bug-proj/backend/data/data.json');
+const bugs = utilService.readJsonFile('C:/Users/talor/OneDrive/Desktop/miss-bug/backend/data/data.json');
 
 export const bugService = {
     query,
@@ -60,7 +60,7 @@ async function save(bugToSave) {
 }
 
 
-function _saveBugsToFile(path = 'C:/Users/talo/Desktop/miss-bug-proj/backend/data/data.json') {
+function _saveBugsToFile(path = 'C:/Users/talor/OneDrive/Desktop/miss-bug/backend/data/data.json') {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify(bugs, null, 4)
         fs.writeFile(path, data, (err) => {

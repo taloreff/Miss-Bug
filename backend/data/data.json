@@ -1,12 +1,5 @@
 [
     {
-        "_id": "c101",
-        "title": "Cannot save a Car",
-        "severity": 3,
-        "description": "Saving a car is not possible when clicking save button",
-        "createdAt": 1542107359454
-    },
-    {
         "_id": "c103",
         "title": "Removing car does not work",
         "description": "Removing a car is not possible when clicking remove button",
@@ -32,5 +25,12 @@
         "title": "Design is not as in figma",
         "severity": "2",
         "description": "Bug preview design is not accurate to Figma file original design"
+    },
+    {
+        "_id": "cu2Nbk",
+        "title": "new bug",
+        "severity": "123213",
+        "description": "123",
+        "createdAt": 1714660509235
     }
 ]
