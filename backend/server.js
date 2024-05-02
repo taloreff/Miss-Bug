@@ -23,6 +23,8 @@ const corsOptions = {
 app.use(cookieParser())
 app.use(cors(corsOptions))
 
+// app.get('/', (req,res) => res.send('Hello there'))
+
 app.get('/api/bug', async (req, res) => {
     try {
         const bugs = await bugService.query()
@@ -72,6 +74,14 @@ app.get('/api/bug/:bugId', async (req, res) => {
     } catch (error) {
         loggerService.error(`Could'nt get bug`, error)
         res.status(400).send(`Could'nt get bug`)
+    }
+})
+
+app.get('/**', (req, res) => {
+    try{
+        res.sendFile(path.resolve('backend/public/index.html'))
+    } catch(e){
+        console.log(e)
     }
 })
 
