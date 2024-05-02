@@ -3,8 +3,8 @@ import ms from 'ms'
 import { utilService } from "./util.service.js"
 
 const isRender = JSON.parse(process.env.IS_RENDER)
-const basePath = isRender ? '' : 'backend/'
-const bugs = utilService.readJsonFile(basePath + 'data/data.json');
+const basePath = isRender ? '' : 'backend'
+const bugs = utilService.readJsonFile(basePath + '/data/data.json');
 
 export const bugService = {
     query,
@@ -63,7 +63,7 @@ async function save(bugToSave) {
 
 
 function _saveBugsToFile(path) {
-    if (!path) path = basePath + 'data/data.json'
+    if (!path) path = basePath + '/data/data.json'
     return new Promise((resolve, reject) => {
         const data = JSON.stringify(bugs, null, 4)
         fs.writeFile(path, data, (err) => {
