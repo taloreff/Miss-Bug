@@ -79,7 +79,7 @@ app.get('/api/bug/:bugId', async (req, res) => {
 
 app.get('/**', (req, res) => {
     try{
-        res.sendFile(path.resolve('backend/public/index.html'))
+        res.sendFile(path.resolve('backend/public'))
     } catch(e){
         console.log(e)
     }
