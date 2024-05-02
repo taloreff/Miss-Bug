@@ -78,7 +78,7 @@ app.get('/api/bug/:bugId', async (req, res) => {
 })
 
 app.get('/**', (req, res) => {
-    res.sendFile(path.resolve('/backend/public/index.html'))
+    res.sendFile(path.resolve('backend/public/index.html'))
 })
 
 const port = process.env.PORT || 3030
