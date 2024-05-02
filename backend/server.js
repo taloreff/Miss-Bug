@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
+import { path } from 'node:path'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -77,7 +78,7 @@ app.get('/api/bug/:bugId', async (req, res) => {
 })
 
 app.get('/**', (req, res) => {
-    res.sendFile(path.resolve('public/index.html'))
+    res.sendFile(path.resolve('backend/public/index.html'))
 })
 
 const port = process.env.PORT || 3030
