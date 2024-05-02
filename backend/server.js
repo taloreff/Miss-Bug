@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser'
 
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
-import { path } from 'node:path'
+import path from 'node:path'
 import dotenv from 'dotenv'
 
 dotenv.config()
