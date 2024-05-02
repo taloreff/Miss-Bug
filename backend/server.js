@@ -77,4 +77,4 @@ app.get('/api/bug/:bugId', async (req, res) => {
 })
 
 const port = process.env.PORT || 3030
-app.listen(port, () => console.log(`Server listening on port http://127.0.0.1:${port}/`))
+app.listen(port, () => loggerService.info(`Server listening on port http://127.0.0.1:${port}/`))
