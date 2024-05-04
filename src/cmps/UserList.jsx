@@ -1,30 +1,30 @@
 
 import { Link } from 'react-router-dom'
-import { BugPreview } from './BugPreview'
+import { UserPreview } from './UserPreview'
 
-export function BugList({ bugs, onRemoveBug, onEditBug }) {
+export function UserList({ users, onRemoveUser, onEditUser }) {
   return (
     <ul className="bug-list">
-      {bugs?.map((bug) => (
-        <li className="bug-preview" key={bug._id}>
-          <BugPreview bug={bug} />
+      {users?.map((user) => (
+        <li className="bug-preview" key={user._id}>
+          <UserPreview user={user} />
           <div>
             <button
               onClick={() => {
-                onRemoveBug(bug._id)
+                onRemoveUser(user._id)
               }}
             >
               x
             </button>
             <button
               onClick={() => {
-                onEditBug(bug)
+                onEditUser(user)
               }}
             >
               Edit
             </button>
           </div>
-          <Link to={`/bug/${bug._id}`}>Details</Link>
+          <Link to={`/user/${user._id}`}>Details</Link>
         </li>
       ))}
     </ul>

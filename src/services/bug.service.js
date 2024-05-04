@@ -4,7 +4,13 @@ var axios = Axios.create({
     withCredentials: true
 }) 
 
-const BASE_URL = 'http://127.0.0.1:5050/api/bug/'
+var BASE_URL = 'http://127.0.0.1:5050/api/bug/'
+
+if (process.env.NODE_ENV === 'production'){
+    BASE_URL = 'https://miss-bug-8b2w.onrender.com/#/'
+}
+
+export const PAGE_SIZE = 5
 
 export const bugService = {
     query,
@@ -16,16 +22,7 @@ export const bugService = {
 }
 
 async function query(filterBy = {}) {
-    let { data: bugs } = await axios.get(BASE_URL)
-
-    if (filterBy.title) {
-        const regExp = new RegExp(filterBy.title, 'i')
-        bugs = bugs.filter(bug => regExp.test(bug.title))
-    }
-
-    if (filterBy.severity) {
-        bugs = bugs.filter(bug => bug.severity >= filterBy.severity)
-    }
+    let { data: bugs } = await axios.get(BASE_URL, { params: filterBy })
     return bugs
 }
 
@@ -35,20 +32,25 @@ async function getById(bugId) {
 }
 
 async function remove(bugId) {
-    return axios.get(BASE_URL + bugId + '/remove')
+    return axios.delete(BASE_URL + bugId)
 }
 
 async function save(bug) {
-    const queryParams = `?_id=${bug._id || ''}&title=${bug.title}&severity=${bug.severity}&description=${bug.description}`
-    const { data: savedBug } = await axios.get(BASE_URL + 'save' + queryParams)
-    return savedBug
+    let savedBug;
+    if(bug._id) {
+        ({ data: savedBug } = await axios.put(BASE_URL + bug._id, bug));
+    } else {
+        ({ data: savedBug } = await axios.post(BASE_URL, bug));
+    }
+
+    return savedBug;
 }
 
-function getEmptyBug(title = '', severity = '', description = '') {
-    return { title, severity, description }
+function getEmptyBug(title = '', severity = '', description = '', labels = []) {
+    return { title, severity, description, labels };
 }
 
 function getDefaultFilter() {
-    return { title: '', severity: ''}
+    return { title: '', severity: '', labels: []}
 }
 

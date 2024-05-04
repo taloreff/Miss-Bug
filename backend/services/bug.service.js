@@ -1,10 +1,8 @@
 import fs from 'fs'
-import ms from 'ms'
 import { utilService } from "./util.service.js"
 
-const isRender = JSON.parse(process.env.IS_RENDER)
-const basePath = isRender ? '' : 'backend'
-const bugs = utilService.readJsonFile(basePath + '/data/data.json');
+const bugs = utilService.readJsonFile('data/bugs.json');
+const PAGE_SIZE = 5
 
 export const bugService = {
     query,
@@ -13,9 +11,41 @@ export const bugService = {
     save
 }
 
-async function query() {
+async function query(filterBy = {}) {
+    let filteredBugs = [...bugs]
+
     try {
-        return bugs
+        if (filterBy.txt) {
+            const regExp = new RegExp(filterBy.txt, 'i')
+            filteredBugs = filteredBugs.filter(bug => regExp.test(bug.vendor))
+        }
+    
+        if (filterBy.severity) {
+            filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.severity)
+        }
+
+        if(filterBy.labels){
+            filteredBugs = filteredBugs.filter(bug => bug.labels.some(label => filterBy.labels.includes(label)))
+        }
+
+        if(filterBy.sortBy === 'severity') {
+            filteredBugs.sort((bug1, bug2) => bug1.severity - bug2.severity)
+        }
+
+        if(filterBy.sortBy === 'createdAt') {
+            filteredBugs.sort((bug1, bug2) => bug1.createdAt - bug2.createdAt)
+        }
+
+        if(filterBy.sortBy === 'title') {
+            filteredBugs.sort((bug1, bug2) => bug1.title.localeCompare(bug2.title))
+        }
+
+        if(filterBy.pageIdx) {
+            const startIdx = filterBy.pageIdx * PAGE_SIZE
+            filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
+        }
+
+        return filteredBugs
     } catch (error) {
         throw error
     }
@@ -62,8 +92,7 @@ async function save(bugToSave) {
 }
 
 
-function _saveBugsToFile(path) {
-    if (!path) path = basePath + '/data/data.json'
+function _saveBugsToFile(path = 'data/bugs.json') {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify(bugs, null, 4)
         fs.writeFile(path, data, (err) => {

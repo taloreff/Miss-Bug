@@ -1,23 +1,32 @@
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { BugFilter } from '../cmps/BugFilter.jsx'
-
+import {utilService} from '../services/util.service.js'
 
 export function BugIndex() {
   const [bugs, setBugs] = useState([])
   const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
+  const [pageIdx, setPageIdx] = useState(0);
 
+  const debouncedSetFilterBy = 
+        useCallback(utilService.debounce(onSetFilterBy, 1000), [])
+        
   useEffect(() => {
-    loadBugs(filterBy)
-  }, [filterBy])
+    loadBugs()
+  }, [filterBy,pageIdx])
 
-  async function loadBugs(filterBy) {
-    const bugs = await bugService.query(filterBy)
-    setBugs(bugs)
+  async function loadBugs() {
+    try {
+      const filteredBugs = await bugService.query({ ...filterBy, pageIdx });
+      setBugs(filteredBugs);
+    } catch (err) {
+      console.log('Error from loadBugs ->', err);
+      showErrorMsg('Cannot load bugs');
+    }
   }
+  
 
   async function onRemoveBug(bugId) {
     try {
@@ -77,16 +86,28 @@ export function BugIndex() {
   }
 
   function onSetFilterBy(filterBy) {
+    setPageIdx(0)
     setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
-}
+  }
 
+  function nextPage() {
+    setPageIdx(prevPageIdx => prevPageIdx + 1);
+  }
+
+  function prevPage() {
+    setPageIdx(prevPageIdx => Math.max(prevPageIdx - 1, 0));
+  }
   return (
     <main className="bug-index">
       <h3>Bugs App</h3>
       <main>
-        <BugFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+        <BugFilter filterBy={filterBy} onSetFilterBy={debouncedSetFilterBy} />
         <button className='add-btn' onClick={onAddBug}>Add Bug ⛐</button>
         <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+        <div>
+          <button disabled={pageIdx === 0} onClick={prevPage}>Previous</button>
+          <button onClick={nextPage}>Next</button>
+        </div>
       </main>
     </main>
   )
