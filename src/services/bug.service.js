@@ -7,7 +7,7 @@ var axios = Axios.create({
 var BASE_URL = 'http://127.0.0.1:5050/api/bug/'
 
 if (process.env.NODE_ENV === 'production'){
-    BASE_URL = 'https://miss-bug-8b2w.onrender.com/#/'
+    BASE_URL = 'https://miss-bug-8b2w.onrender.com/api/bug'
 }
 
 export const PAGE_SIZE = 5

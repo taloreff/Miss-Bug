@@ -1,9 +1,9 @@
 [
     {
         "_id": "u101",
-        "fullname": "Muki JaJa",
+        "fullname": "blabla",
         "username": "muki",
-        "score": 99,
+        "score": 123,
         "password": "muki1234"
     },
     {
@@ -72,5 +72,10 @@
         "fullname": "blablabal",
         "score": 12,
         "_id": "WcbQTZ"
+    },
+    {
+        "fullname": "new user",
+        "score": 111,
+        "_id": "xfUfrl"
     }
 ]
